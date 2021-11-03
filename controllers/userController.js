@@ -1,9 +1,6 @@
 'use strict';
 // userController
-const userModel = require('../models/userModel');
-
-// const users = userModel.users;
-const { getAllUsers, getUser } = userModel;
+const { getAllUsers, getUser, addUser } = require('../models/userModel');
 
 const user_list_get = async (req, res, next) => {
   try {
@@ -33,9 +30,23 @@ const user_get = async (req, res, next) => {
   }
 };
 
-const user_post = (req, res) => {
-  console.log(req.body);
-  res.send('From this endpoint you can add users.');
+const user_post = async (req, res, next) => {
+  try {
+    console.log('lomakkeesta', req.body);
+    const { name, email, passwd } = req.body;
+    const tulos = await addUser(name, email, passwd, next);
+    if (tulos.affectedRows > 0) {
+      res.json({
+        message: 'user added',
+        user_id: tulos.insertId,
+      });
+    } else {
+      next(httpError('No user inserted', 400));
+    }
+  } catch (error) {
+    console.log('user_post error', e.message);
+    next(httpError('internal server error', 500));
+  }
 };
 
 module.exports = {
