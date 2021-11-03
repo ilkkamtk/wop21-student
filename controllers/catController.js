@@ -21,8 +21,17 @@ const cat_list_get = async (req, res, next) => {
 };
 
 const cat_get = async (req, res, next) => {
-  const vastaus = await getCat(req.params.id, next);
-  res.json(vastaus);
+  try {
+    const vastaus = await getCat(req.params.id, next);
+    if (vastaus.length > 0) {
+      res.json(vastaus.pop());
+    } else {
+      next(httpError('No cat found', 404));
+    }
+  } catch (e) {
+    console.log('cat_get error', e.message);
+    next(httpError('internal server error', 500));
+  }
 };
 
 const cat_post = (req, res) => {

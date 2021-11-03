@@ -20,7 +20,7 @@ const getCat = async (id, next) => {
       'SELECT * FROM wop_cat WHERE cat_id = ?',
       [id]
     );
-    return rows.pop();
+    return rows;
   } catch (e) {
     console.error('getCat error', e.message);
     next(httpError('Database error', 500));
