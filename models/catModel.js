@@ -6,7 +6,7 @@ const promisePool = pool.promise();
 const getAllCats = async (next) => {
   try {
     // TODO: do the LEFT (or INNER) JOIN to get owner's name as ownername (from wop_user table).
-    const [rows] = await promisePool.execute('SELEC * FROM wop_cat');
+    const [rows] = await promisePool.execute('SELECT * FROM wop_cat');
     return rows;
   } catch (e) {
     console.error('getAllCats error', e.message);
