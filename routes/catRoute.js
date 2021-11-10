@@ -8,6 +8,7 @@ const {
   cat_get,
   cat_post,
   cat_put,
+  cat_delete,
 } = require('../controllers/catController');
 const router = express.Router();
 
@@ -19,8 +20,6 @@ router.post('/', upload.single('cat'), cat_post);
 
 router.put('/', cat_put);
 
-router.delete('/', (req, res) => {
-  res.send('From this endpoint you can delete cats.');
-});
+router.delete('/:id', cat_delete);
 
 module.exports = router;
