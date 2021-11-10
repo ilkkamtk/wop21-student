@@ -25,14 +25,14 @@ router
   .get(cat_list_get)
   .post(
     upload.single('cat'),
-    body('name').notEmpty(),
+    body('name').notEmpty().escape(),
     body('birthdate').isDate(),
     body('weight').isNumeric(),
     body('owner').isNumeric(),
     cat_post
   )
   .put(
-    body('name').notEmpty(),
+    body('name').notEmpty().escape(),
     body('birthdate').isDate(),
     body('weight').isNumeric(),
     body('owner').isNumeric(),
