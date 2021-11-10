@@ -58,6 +58,26 @@ const cat_post = async (req, res, next) => {
   }
 };
 
+const cat_put = async (req, res, next) => {
+  console.log('cat_put', req.body);
+  // pvm VVVV-KK-PP esim 2010-05-28
+  try {
+    const { name, birthdate, weight, owner, id } = req.body;
+    const tulos = await addCat(name, weight, owner, birthdate, id, next);
+    if (tulos.affectedRows > 0) {
+      res.json({
+        message: 'cat modified',
+        cat_id: tulos.insertId,
+      });
+    } else {
+      next(httpError('No cat modified', 400));
+    }
+  } catch (e) {
+    console.log('user_post error', e.message);
+    next(httpError('internal server error', 500));
+  }
+};
+
 module.exports = {
   cat_list_get,
   cat_get,

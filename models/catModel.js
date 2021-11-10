@@ -40,8 +40,22 @@ const addCat = async (name, weight, owner, birthdate, filename, next) => {
   }
 };
 
+const modifyCat = async (name, weight, owner, birthdate, cat_id, next) => {
+  try {
+    const [rows] = await promisePool.execute(
+      'UPDATE wop_cat SET name = ?, weight = ?, owner = ?, birthdate = ? WHERE cat_id = ?;',
+      [name, weight, owner, birthdate, cat_id]
+    );
+    return rows;
+  } catch (e) {
+    console.error('addCat error', e.message);
+    next(httpError('Database error', 500));
+  }
+};
+
 module.exports = {
   getAllCats,
   getCat,
   addCat,
+  modifyCat,
 };
