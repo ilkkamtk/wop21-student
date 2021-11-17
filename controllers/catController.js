@@ -88,10 +88,13 @@ const cat_put = async (req, res, next) => {
   // pvm VVVV-KK-PP esim 2010-05-28
   try {
     const { name, birthdate, weight } = req.body;
-    let owner = req.user.user_id;
+    /*let owner = req.user.user_id;
     if (req.user.role === 0) {
       owner = req.body.owner;
-    }
+    }*/
+
+    const owner = req.user.role === 0 ? req.body.owner : req.user.user_id;
+
     const tulos = await modifyCat(
       name,
       weight,
