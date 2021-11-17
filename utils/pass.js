@@ -35,7 +35,7 @@ passport.use(
       secretOrKey: ',hb.ksjhgkj.df,b',
     },
     (jwtPayload, done) => {
-      console.log('payload', jwtPayload);
+      // console.log('payload', jwtPayload);
       done(null, jwtPayload);
     }
   )
