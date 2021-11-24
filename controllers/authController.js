@@ -5,7 +5,7 @@ const passport = require('passport');
 const { addUser } = require('../models/userModel');
 const { httpError } = require('../utils/errors');
 const bcrypt = require('bcryptjs');
-const salt = bcrypt.genSaltSync(10);
+const salt = bcrypt.genSaltSync(12);
 
 const login = (req, res, next) => {
   // TODO: add passport authenticate
